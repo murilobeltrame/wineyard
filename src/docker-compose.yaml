@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+  wine:
+    build:
+      context: ./wine/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+  winery:
+    build:
+      context: ./winery/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"

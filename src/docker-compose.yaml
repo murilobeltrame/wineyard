@@ -13,9 +13,21 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
+  wine-api:
+    build:
+      context: ./wine/api
+      dockerfile: Dockerfile
+    ports:
+      - "3011:80"
   winery:
     build:
       context: ./winery/frontend
       dockerfile: Dockerfile
     ports:
       - "3002:3002"
+  winery-api:
+    build:
+      context: ./winery/api
+      dockerfile: Dockerfile
+    ports:
+      - "3022:80"

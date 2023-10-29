@@ -1,6 +1,6 @@
 import LazyParcel from "./components/lazyparcel"
 
-export const Root=({name}) => {
+export const Root=({name}:{name:string}) => {
 
   return (
     <>

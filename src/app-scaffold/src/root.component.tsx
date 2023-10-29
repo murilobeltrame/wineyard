@@ -1,28 +1,13 @@
-import { useEffect, useState } from "react"
-import Parcel from "single-spa-react/parcel"
+import LazyParcel from "./components/lazyparcel"
 
 export const Root=({name}) => {
-
-  const [loading, setLoading] = useState<boolean>(true)
-  const [module, setModule] = useState<System.Module>(null)
-
-  useEffect(() => {
-    setLoading(true)
-    System.import("@wineyard/grapes")
-      .then((module) => {
-        setLoading(false)
-        setModule(module)
-      })
-  },[])
-
-  let parcel
-  if (loading || !module) parcel = (<div>loading ... </div>)
-  else parcel = <Parcel config={{...module.default, name: "wineyard-grapes" }} />
 
   return (
     <>
       <h1>{name}</h1>
-      {parcel}
+      <LazyParcel moduleName="@wineyard/countries" name="wineyard-countries" />
+      <LazyParcel moduleName="@wineyard/grapes" name="wineyard-grapes" />
+      <LazyParcel moduleName="@wineyard/wines" name="wineyard-wines" />
     </>
   )
 }

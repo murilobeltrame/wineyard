@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  app-scaffold:
+    build:
+      context: app-scaffold
+      dockerfile: Dockerfile
+    ports:
+      - 9001:9001
+  countries:
+    build:
+      context: countries/frontend
+      dockerfile: Dockerfile
+    ports:
+      - 9002:9002
+  grapes:
+    build:
+      context: grapes/frontend
+      dockerfile: Dockerfile
+    ports:
+      - 9003:9003
+  wines:
+    build:
+      context: wines/frontend
+      dockerfile: Dockerfile
+    ports:
+      - 9004:9004

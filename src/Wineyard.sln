@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "countries", "countries", "{93873D67-D83E-4F9F-865D-FC9324C11DB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{E627630B-D5D1-4A62-B10C-B548F2DA4524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Api", "countries\backend\Countries.Api\Countries.Api.csproj", "{B56FEF19-F87D-4885-BEA4-9CC06046FA1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grapes", "grapes", "{CB8E4DD3-EF19-4B21-B9E2-D1C01AC8FFC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{A4B9C829-4D50-4ED2-A89E-91E9A3BECC5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grapes.Api", "grapes\backend\Grapes.Api\Grapes.Api.csproj", "{54036AA0-0B63-4242-BAB4-1ED318C407EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wines", "wines", "{19606F2B-48DF-4B12-B809-CBD4B31414D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{15EA8F80-2B0F-496B-AF9D-59D44136F013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wines.Api", "wines\backend\Wines.Api\Wines.Api.csproj", "{C81E9EEE-07C3-4FA1-B473-DA4FFB77F5AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B56FEF19-F87D-4885-BEA4-9CC06046FA1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56FEF19-F87D-4885-BEA4-9CC06046FA1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56FEF19-F87D-4885-BEA4-9CC06046FA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56FEF19-F87D-4885-BEA4-9CC06046FA1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54036AA0-0B63-4242-BAB4-1ED318C407EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54036AA0-0B63-4242-BAB4-1ED318C407EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54036AA0-0B63-4242-BAB4-1ED318C407EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54036AA0-0B63-4242-BAB4-1ED318C407EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81E9EEE-07C3-4FA1-B473-DA4FFB77F5AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81E9EEE-07C3-4FA1-B473-DA4FFB77F5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81E9EEE-07C3-4FA1-B473-DA4FFB77F5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81E9EEE-07C3-4FA1-B473-DA4FFB77F5AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E627630B-D5D1-4A62-B10C-B548F2DA4524} = {93873D67-D83E-4F9F-865D-FC9324C11DB3}
+		{B56FEF19-F87D-4885-BEA4-9CC06046FA1A} = {E627630B-D5D1-4A62-B10C-B548F2DA4524}
+		{A4B9C829-4D50-4ED2-A89E-91E9A3BECC5D} = {CB8E4DD3-EF19-4B21-B9E2-D1C01AC8FFC2}
+		{54036AA0-0B63-4242-BAB4-1ED318C407EC} = {A4B9C829-4D50-4ED2-A89E-91E9A3BECC5D}
+		{15EA8F80-2B0F-496B-AF9D-59D44136F013} = {19606F2B-48DF-4B12-B809-CBD4B31414D0}
+		{C81E9EEE-07C3-4FA1-B473-DA4FFB77F5AA} = {15EA8F80-2B0F-496B-AF9D-59D44136F013}
+	EndGlobalSection
+EndGlobal

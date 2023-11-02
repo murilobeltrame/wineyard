@@ -13,8 +13,23 @@ public class CountriesController : ControllerBase
     public CountriesController(ApplicationContext context) => _context = context;
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] CountriesRequest request)
     {
-        return Ok(await _context.Countries.ToListAsync());
+        var query = _context.Countries.AsQueryable();
+        if (!string.IsNullOrWhiteSpace(request.Name) && request.Name.Length >= 3)
+        {
+            query = query.Where(w => w.Name.StartsWith(request.Name));
+        }
+        query = query
+            .Skip((int)request.Skip)
+            .Take(request.Take);
+        return Ok(await query.AsNoTracking().ToListAsync());
     }
+}
+
+public class CountriesRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public uint Skip { get; set; } = 0;
+    public ushort Take { get; set; } = 10;
 }

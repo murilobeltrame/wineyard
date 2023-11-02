@@ -16,7 +16,7 @@ public class CountriesController : ControllerBase
     public async Task<IActionResult> Get([FromQuery] CountriesRequest request)
     {
         var query = _context.Countries.AsQueryable();
-        if (!string.IsNullOrWhiteSpace(request.Name) && request.Name.Length >= 3)
+        if (!string.IsNullOrWhiteSpace(request.Name))
         {
             query = query.Where(w => w.Name.StartsWith(request.Name));
         }

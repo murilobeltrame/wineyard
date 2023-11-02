@@ -1,7 +1,12 @@
 {
   "name": "@wineyard/root-config",
   "scripts": {
-    "start": "webpack serve --port 9000 --env isLocal",
+    "start": "concurrently npm:start:*",
+    "start:root": "webpack serve --port 9000 --env isLocal",
+    "start:scaffold": "cd ../app-scaffold && webpack serve --port 9001",
+    "start:countries": "cd ../countries/frontend && webpack serve --port 9002",
+    "start:grapes": "cd ../grapes/frontend && webpack serve --port 9003",
+    "start:wines": "cd ../wines/frontend && webpack serve --port 9004",
     "lint": "eslint src --ext js",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
     "format": "prettier --write .",
@@ -16,7 +21,7 @@
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/runtime": "^7.15.3",
-    "concurrently": "^6.2.1",
+    "concurrently": "^6.5.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-config-important-stuff": "^1.1.0",

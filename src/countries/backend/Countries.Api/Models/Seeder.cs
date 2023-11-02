@@ -34,8 +34,10 @@ public class Seeder
             new Country("Uruguai"),
         }.ToList();
 
-        _context.Countries.RemoveRange(_context.Countries);
-        _context.Countries.AddRange(countries);
-        _context.SaveChanges();
+        if (!_context.Countries.Any())
+        {
+            _context.Countries.AddRange(countries);
+            _context.SaveChanges();
+        }
     }
 }

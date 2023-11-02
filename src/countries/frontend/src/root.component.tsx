@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 
 export default function Root(props:Readonly<{name:string}>) {
   const [countries, setCountries] = useState([])
+  const [countryFilter, setCountryFilter] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:5004/Countries')
+    let url = 'http://localhost:5004/Countries'
+    if (countryFilter?.length >= 3) {
+      url = `${url}?name=${countryFilter}`
+    }
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setCountries(data))
-  },[])
+  },[countryFilter])
 
   function handleCountrySelectionChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) {
@@ -18,9 +23,13 @@ export default function Root(props:Readonly<{name:string}>) {
     }
   }
 
+  function handleCountryFilterChange(event: React.ChangeEvent<HTMLInputElement>) { 
+    setCountryFilter(event.target.value);
+  }
+
   return (
     <>
-      <TextField label="Country" variant="standard" />
+      <TextField label="Country" variant="standard" fullWidth onChange={handleCountryFilterChange} />
       <List>
         {countries.map((country:{id:number, name:string}) => {
           return (

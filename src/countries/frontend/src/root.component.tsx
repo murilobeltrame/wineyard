@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function Root() {
   const [countries, setCountries] = useState([])
   const [countryFilter, setCountryFilter] = useState('')
+  const [countriesSelected, setCountriesSelected] = useState<string[]>([])
 
   useEffect(() => {
     let url = 'http://localhost:5004/Countries'
@@ -36,7 +37,10 @@ export default function Root() {
             <ListItem key={country.id}>
               <ListItemButton role={undefined} dense>
                 <ListItemIcon>
-                  <Checkbox edge="start" value={country.name} disableRipple onChange={handleCountrySelectionChange} />
+                  <Checkbox edge="start" 
+                    value={country.name} 
+                    disableRipple 
+                    onChange={handleCountrySelectionChange} />
                 </ListItemIcon>
                 <ListItemText primary={country.name}></ListItemText>
               </ListItemButton>

@@ -6,11 +6,13 @@ export default function Root() {
   const [grapeFilter, setGrapeFilter] = useState('')
 
   useEffect(() => {
-    const grapeList:any = [
-      {id:1, name:'Merlot'}, 
-      {id:2, name:'Chardonay'},
-      {id:3, name:'Carmernere'}]
-    setGrapes(grapeList)
+    let url = 'http://localhost:5054/Grapes'
+    if (grapeFilter?.length >= 3) {
+      url = `${url}?name=${grapeFilter}`
+    }
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setGrapes(data))
   }, [grapeFilter])
 
   function handleGrapeSelectionChange(event: React.ChangeEvent<HTMLInputElement>) {

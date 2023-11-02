@@ -1,7 +1,7 @@
 import { Checkbox, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
-export default function Root(props:Readonly<{name:string}>) {
+export default function Root() {
   const [countries, setCountries] = useState([])
   const [countryFilter, setCountryFilter] = useState('')
 

@@ -13,7 +13,7 @@ export const Root=() => {
       <Box sx={{flexGrow: 1}}>
       <LazyParcel moduleName="@wineyard/grapes" name="wineyard-grapes" />
       </Box>
-      <Box sx={{flexGrow: 1}}>
+      <Box sx={{flexGrow: 4}}>
       <LazyParcel moduleName="@wineyard/wines" name="wineyard-wines" />
       </Box>
       </Box>

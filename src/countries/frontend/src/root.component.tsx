@@ -18,8 +18,13 @@ export default function Root() {
 
   function handleCountrySelectionChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) {
+      setCountriesSelected([...countriesSelected, event.target.value])
       dispatchEvent(new CustomEvent('@wineyard/countries/selected', { detail: {name: event.target.value}}))
     } else {
+      const n = countriesSelected
+      const idx = n.indexOf(event.target.value)
+      n.splice(idx, 1)
+      setCountriesSelected([...n])
       dispatchEvent(new CustomEvent('@wineyard/countries/unselected', { detail: {name: event.target.value}}))
     }
   }
@@ -40,7 +45,8 @@ export default function Root() {
                   <Checkbox edge="start" 
                     value={country.name} 
                     disableRipple 
-                    onChange={handleCountrySelectionChange} />
+                    onChange={handleCountrySelectionChange}
+                    checked={countriesSelected.indexOf(country.name) >= 0} />
                 </ListItemIcon>
                 <ListItemText primary={country.name}></ListItemText>
               </ListItemButton>

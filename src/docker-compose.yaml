@@ -1,27 +1,79 @@
 version: "3"
 
 services:
-  app-scaffold:
+  # app-scaffold:
+  #   build:
+  #     context: app-scaffold
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 9001:9001
+  # countries:
+  #   build:
+  #     context: countries/frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 9002:9002
+  # grapes:
+  #   build:
+  #     context: grapes/frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 9003:9003
+  # wines:
+  #   build:
+  #     context: wines/frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 9004:9004
+  countries-api:
     build:
-      context: app-scaffold
+      context: countries/backend/Countries.Api
       dockerfile: Dockerfile
+    depends_on:
+      mssql:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ConnectionStrings:CountriesDb=Server=mssql;Database=Countries;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
     ports:
-      - 9001:9001
-  countries:
+      - "8082:80"
+  grapes-api:
     build:
-      context: countries/frontend
+      context: grapes/backend/Grapes.Api
       dockerfile: Dockerfile
+    depends_on:
+      mssql:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ConnectionStrings:GrapesDb=Server=mssql;Database=Grapes;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
     ports:
-      - 9002:9002
-  grapes:
+      - "8083:80"
+  wines-api:
     build:
-      context: grapes/frontend
+      context: wines/backend/Wines.Api
       dockerfile: Dockerfile
+    depends_on:
+      mssql:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ConnectionStrings:WinesDb=Server=mssql;Database=Wines;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
     ports:
-      - 9003:9003
-  wines:
-    build:
-      context: wines/frontend
-      dockerfile: Dockerfile
+      - "8084:80"
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/opt/mssql-tools/bin/sqlcmd",
+          "-Usa",
+          "-PYourStrong@Passw0rd",
+          "-Q",
+          "select 1",
+        ]
+      interval: 1s
+      retries: 30
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
     ports:
-      - 9004:9004
+      - "14333:1433"

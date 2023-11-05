@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  app:
+    build:
+      context: app
+      dockerfile: Dockerfile
+      args:
+        - ENV=onCompose
+    ports:
+      - 9000:80
   # app-scaffold:
   #   build:
   #     context: app-scaffold

@@ -9,12 +9,12 @@ services:
         - ENV=onCompose
     ports:
       - 9000:80
-  # app-scaffold:
-  #   build:
-  #     context: app-scaffold
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 9001:9001
+  app-scaffold:
+    build:
+      context: app-scaffold
+      dockerfile: Dockerfile
+    ports:
+      - 9001:80
   # countries:
   #   build:
   #     context: countries/frontend

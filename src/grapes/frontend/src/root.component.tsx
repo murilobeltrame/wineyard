@@ -14,6 +14,7 @@ export default function Root() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setGrapes(data))
+      .catch(_ => setGrapes([]))
   }, [grapeFilter])
 
   function handleGrapeSelectionChange(event: React.ChangeEvent<HTMLInputElement>) {

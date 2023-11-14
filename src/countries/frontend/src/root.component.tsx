@@ -8,12 +8,14 @@ export default function Root() {
 
   useEffect(() => {
     let url = 'http://localhost:5004/Countries'
+    // let url = `${process.env.BACKEND_URL}/Countries`
     if (countryFilter?.length >= 3) {
       url = `${url}?name=${countryFilter}`
     }
     fetch(url)
       .then((response) => response.json())
       .then((data) => setCountries(data))
+      .catch(_ => setCountries([]))
   },[countryFilter])
 
   function handleCountrySelectionChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -35,6 +37,7 @@ export default function Root() {
 
   return (
     <>
+      {/* <p>backend is {process.env.BACKEND_URL}</p> */}
       <TextField label="Country" variant="standard" fullWidth onChange={handleCountryFilterChange} />
       <List>
         {countries.map((country:{id:number, name:string}) => {

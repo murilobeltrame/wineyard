@@ -56,6 +56,7 @@ export default function Root() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setWines(data))
+      .catch(_ => setWines([]))
   }, [selectedCountries, selectedGrapes])
 
   return (

@@ -1,11 +1,11 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import LazyParcel from "./components/lazyparcel"
 
 export const Root=() => {
 
   return (
     <>
-      <h1>Wineyard</h1>
+      <Typography variant="h1">Wineyard</Typography>
       <Box sx={{display: 'flex', gap:'60px'}}>
       <Box sx={{flexGrow: 1}}>
       <LazyParcel moduleName="@wineyard/countries" name="wineyard-countries" />

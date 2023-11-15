@@ -61,9 +61,9 @@ export default function Root() {
 
   return (
     <>
-      <h2>Wines</h2>
-      <p>{selectedCountries}</p>
-      <p>{selectedGrapes}</p>
+      <Typography variant="h2">Wines</Typography>
+      {/* <p>{selectedCountries}</p>
+      <p>{selectedGrapes}</p> */}
       <List>
         {wines.map((wine: Wine) => {
           return (<ListItem key={wine.id}>

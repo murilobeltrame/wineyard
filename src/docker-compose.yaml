@@ -24,7 +24,7 @@ services:
       context: countries/frontend
       dockerfile: Dockerfile
       args:
-        - BACKEND_URL=http://countries-api
+        - BACKEND_URL=http://localhost:8082
     ports:
       - 9002:80
   grapes:
@@ -32,7 +32,7 @@ services:
       context: grapes/frontend
       dockerfile: Dockerfile
       args:
-        - BACKEND_URL=http://grapes-api
+        - BACKEND_URL=http://localhost:8083
     ports:
       - 9003:80
   wines:
@@ -40,7 +40,7 @@ services:
       context: wines/frontend
       dockerfile: Dockerfile
       args:
-        - BACKEND_URL=http://wines-api
+        - BACKEND_URL=http://localhost:8084
     ports:
       - 9004:80
   countries-api:

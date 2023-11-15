@@ -21,6 +21,11 @@ module.exports = (webpackConfigEnv, argv) => {
         templateParameters: {
           isLocal: webpackConfigEnv && webpackConfigEnv.isLocal,
           onCompose: webpackConfigEnv && webpackConfigEnv.onCompose,
+          rootConfigUrl: JSON.stringify(webpackConfigEnv.rootConfigUrl),
+          scaffoldMfeUrl: JSON.stringify(webpackConfigEnv.scaffoldMfeUrl),
+          countriesMfeUrl: JSON.stringify(webpackConfigEnv.countriesMfeUrl),
+          grapesMfeUrl: JSON.stringify(webpackConfigEnv.grapesMfeUrl),
+          winesMfeUrl: JSON.stringify(webpackConfigEnv.winesMfeUrl),
           orgName,
         },
       }),

@@ -6,7 +6,11 @@ services:
       context: app
       dockerfile: Dockerfile
       args:
-        - ENV=onCompose
+        - ROOT_CONFIG_URL=//localhost:9000/wineyard-root-config.js
+        - SCAFFOLD_MFE_URL=//localhost:9001/wineyard-app-scaffold.js
+        - COUNTRIES_MFE_URL=//localhost:9002/wineyard-countries.js
+        - GRAPES_MFE_URL=//localhost:9003/wineyard-grapes.js
+        - WINES_MFE_URL=//localhost:9004/wineyard-wines.js
     ports:
       - 9000:80
   app-scaffold:

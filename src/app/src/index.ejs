@@ -18,31 +18,17 @@
     }
   </script>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script">
-  <% if (isLocal) { %>
   <script type="systemjs-importmap">
     {
       "imports": {
-        "@wineyard/root-config": "//localhost:9000/wineyard-root-config.js",
-        "@wineyard/scaffold": "//localhost:9001/wineyard-app-scaffold.js",
-        "@wineyard/countries": "//localhost:9002/wineyard-countries.js",
-        "@wineyard/grapes": "//localhost:9003/wineyard-grapes.js",
-        "@wineyard/wines": "//localhost:9004/wineyard-wines.js"
+        "@wineyard/root-config": <%= rootConfigUrl %>,
+        "@wineyard/scaffold": <%= scaffoldMfeUrl %>,
+        "@wineyard/countries": <%= countriesMfeUrl %>,
+        "@wineyard/grapes": <%= grapesMfeUrl %>,
+        "@wineyard/wines": <%= winesMfeUrl %>
       }
     }
   </script>
-  <% } else if (onCompose) {%>
-    <script type="systemjs-importmap">
-      {
-        "imports": {
-          "@wineyard/root-config": "//localhost/wineyard-root-config.js",
-          "@wineyard/scaffold": "//scaffold/wineyard-app-scaffold.js",
-          "@wineyard/countries": "//countries/wineyard-countries.js",
-          "@wineyard/grapes": "//grapes/wineyard-grapes.js",
-          "@wineyard/wines": "//wines/wineyard-wines.js"
-        }
-      }
-    </script>
-  <% } %>
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
   <% if (isLocal) { %>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.js"></script>

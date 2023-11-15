@@ -7,7 +7,7 @@ export default function Root() {
   const [grapesSelected, setGrapesSelected] = useState<string[]>([])
 
   useEffect(() => {
-    let url = 'http://localhost:5054/Grapes'
+    let url = `${process.env.BACKEND_URL ?? 'http://localhost:5054'}/Grapes`
     if (grapeFilter?.length >= 3) {
       url = `${url}?name=${grapeFilter}`
     }

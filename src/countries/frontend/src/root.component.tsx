@@ -7,7 +7,7 @@ export default function Root() {
   const [countriesSelected, setCountriesSelected] = useState<string[]>([])
 
   useEffect(() => {
-    let url = `${process.env.BACKEND_URL}/Countries`
+    let url = `${process.env.BACKEND_URL?? 'http://localhost:5004'}/Countries`
     if (countryFilter?.length >= 3) {
       url = `${url}?name=${countryFilter}`
     }
@@ -36,7 +36,7 @@ export default function Root() {
 
   return (
     <>
-      <p>backend is {process.env.BACKEND_URL}</p>
+      {/* <p>backend is {process.env.BACKEND_URL}</p> */}
       <TextField label="Country" variant="standard" fullWidth onChange={handleCountryFilterChange} />
       <List>
         {countries.map((country:{id:number, name:string}) => {

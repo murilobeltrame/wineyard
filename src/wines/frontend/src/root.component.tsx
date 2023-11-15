@@ -45,7 +45,7 @@ export default function Root() {
   })
 
   useEffect(() => {
-    let url = 'http://localhost:5069/Wines?'
+    let url = `${process.env.BACKEND_URL?? 'http://localhost:5069'}/Wines?`
     if (selectedCountries.length) {
       url = `${url}${selectedCountries.map(country => `countries=${country}`).join('&')}`
     }

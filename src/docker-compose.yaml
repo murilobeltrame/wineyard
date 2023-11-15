@@ -23,18 +23,22 @@ services:
         - BACKEND_URL=http://countries-api
     ports:
       - 9002:80
-  # grapes:
-  #   build:
-  #     context: grapes/frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 9003:9003
-  # wines:
-  #   build:
-  #     context: wines/frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 9004:9004
+  grapes:
+    build:
+      context: grapes/frontend
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=http://grapes-api
+    ports:
+      - 9003:80
+  wines:
+    build:
+      context: wines/frontend
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=http://wines-api
+    ports:
+      - 9004:80
   countries-api:
     build:
       context: countries/backend/Countries.Api

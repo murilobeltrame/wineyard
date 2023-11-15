@@ -15,12 +15,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - 9001:80
-  # countries:
-  #   build:
-  #     context: countries/frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 9002:9002
+  countries:
+    build:
+      context: countries/frontend
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=http://countries-api
+    ports:
+      - 9002:80
   # grapes:
   #   build:
   #     context: grapes/frontend

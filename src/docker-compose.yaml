@@ -51,7 +51,7 @@ services:
       mssql:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ConnectionStrings:CountriesDb=Server=mssql;Database=Countries;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+      - ASPNETCORE_ConnectionStrings:CountriesDb=Server=mssql;Database=Countries;User Id=sa;Password=${MSSQL_PASSWORD};TrustServerCertificate=True;
     ports:
       - "8082:80"
   grapes-api:
@@ -62,7 +62,7 @@ services:
       mssql:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ConnectionStrings:GrapesDb=Server=mssql;Database=Grapes;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+      - ASPNETCORE_ConnectionStrings:GrapesDb=Server=mssql;Database=Grapes;User Id=sa;Password=${MSSQL_PASSWORD};TrustServerCertificate=True;
     ports:
       - "8083:80"
   wines-api:
@@ -73,7 +73,7 @@ services:
       mssql:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ConnectionStrings:WinesDb=Server=mssql;Database=Wines;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+      - ASPNETCORE_ConnectionStrings:WinesDb=Server=mssql;Database=Wines;User Id=sa;Password=${MSSQL_PASSWORD};TrustServerCertificate=True;
     ports:
       - "8084:80"
   mssql:
@@ -84,7 +84,7 @@ services:
           "CMD",
           "/opt/mssql-tools/bin/sqlcmd",
           "-Usa",
-          "-PYourStrong@Passw0rd",
+          "-P${MSSQL_PASSWORD}",
           "-Q",
           "select 1",
         ]
@@ -92,6 +92,6 @@ services:
       retries: 30
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong@Passw0rd
+      - SA_PASSWORD=${MSSQL_PASSWORD}
     ports:
       - "14333:1433"

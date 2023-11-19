@@ -21,6 +21,7 @@ public class CountriesController : ControllerBase
             query = query.Where(w => w.Name.StartsWith(request.Name));
         }
         query = query
+            .OrderBy(o => o.Name)
             .Skip((int)request.Skip)
             .Take(request.Take);
         return Ok(await query.AsNoTracking().ToListAsync());

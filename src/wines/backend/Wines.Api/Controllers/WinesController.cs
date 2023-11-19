@@ -27,6 +27,7 @@ public class WinesController : ControllerBase
             query = query.Where(w => w.Grapes.Any(ww => request.Grapes.Contains(ww.Name)));
         }
         query = query
+            .OrderBy(o => o.Winery).ThenBy(o => o.Label)
             .Skip((int)request.Skip)
             .Take(request.Take);
         return Ok(await query.Select(s => new

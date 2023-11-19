@@ -23,6 +23,7 @@ public class GrapesController : ControllerBase
                 (w.AlternativeName != null && w.AlternativeName.StartsWith(request.Name)));
         }
         query = query
+            .OrderBy(o => o.Name)
             .Skip((int)request.Skip)
             .Take(request.Take);
         return Ok(await query.AsNoTracking().ToListAsync());

@@ -1,11 +1,22 @@
 using Countries.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
+const string serviceName = "countries-api";
+const string defaultCorsPolicy = "__defaultCorsPolicy";
+
+builder.Logging.AddOpenTelemetry(options => options
+    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
+    .AddConsoleExporter()
+    .AddOtlpExporter());
+
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationContext>(config => config.UseSqlServer(builder.Configuration.GetConnectionString("CountriesDb")));
-const string defaultCorsPolicy = "__defaultCorsPolicy";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(defaultCorsPolicy, configuration =>
@@ -15,6 +26,17 @@ builder.Services.AddCors(options =>
             .WithMethods("OPTIONS", "GET");
     });
 });
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService(serviceName))
+    .WithTracing(tracking => tracking
+        .AddAspNetCoreInstrumentation()
+        .AddSqlClientInstrumentation()
+        .AddConsoleExporter()
+        .AddOtlpExporter())
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddConsoleExporter()
+        .AddOtlpExporter());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

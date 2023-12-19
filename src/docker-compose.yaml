@@ -52,6 +52,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_ConnectionStrings:CountriesDb=Server=mssql;Database=Countries;User Id=sa;Password=${MSSQL_PASSWORD};TrustServerCertificate=True;
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
     ports:
       - "8082:80"
   grapes-api:
@@ -63,6 +64,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_ConnectionStrings:GrapesDb=Server=mssql;Database=Grapes;User Id=sa;Password=${MSSQL_PASSWORD};TrustServerCertificate=True;
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
     ports:
       - "8083:80"
   wines-api:
@@ -74,6 +76,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_ConnectionStrings:WinesDb=Server=mssql;Database=Wines;User Id=sa;Password=${MSSQL_PASSWORD};TrustServerCertificate=True;
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
     ports:
       - "8084:80"
   mssql:
@@ -95,3 +98,49 @@ services:
       - SA_PASSWORD=${MSSQL_PASSWORD}
     ports:
       - "14333:1433"
+  # otel-collector:
+  #   image: otel/opentelemetry-collector-contrib
+  #   volumes:
+  #     - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+  #   ports:
+  #     - 1888:1888 # pprof extension
+  #     - 8888:8888 # Prometheus metrics exposed by the Collector
+  #     - 8889:8889 # Prometheus exporter metrics
+  #     - 13133:13133 # health_check extension
+  #     - 4317:4317 # OTLP gRPC receiver
+  #     - 4318:4318 # OTLP http receiver
+  #     - 55679:55679 # zpages extension
+
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.11.2
+  #   depends_on:
+  #     elasticsearch:
+  #       condition: service_healthy
+  #   environment:
+  #     ELASTICSEARCH_URL: http://elasticsearch:9200
+  #     ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+  #   ports:
+  #     - 5601:5601
+  #   healthcheck:
+  #     interval: 10s
+  #     retries: 20
+  #     test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status
+
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+  #   environment:
+  #     - bootstrap.memory_lock=true
+  #     - cluster.name=docker-cluster
+  #     - cluster.routing.allocation.disk.threshold_enabled=false
+  #     - discovery.type=single-node
+  #     # - ES_JAVA_OPTS=-XX:UseAVX=2 -Xms1g -Xmx1g
+  #   ulimits:
+  #     memlock:
+  #       hard: -1
+  #       soft: -1
+  #   ports:
+  #     - 9200:9200
+  #   healthcheck:
+  #     interval: 20s
+  #     retries: 10
+  #     test: curl -s http://localhost:9200/_cluster/health | grep -vq '"status":"red"'

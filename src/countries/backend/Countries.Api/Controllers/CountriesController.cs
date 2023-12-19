@@ -1,9 +1,11 @@
 using Countries.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Countries.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CountriesController : ControllerBase

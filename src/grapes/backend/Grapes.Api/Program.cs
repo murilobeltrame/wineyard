@@ -1,5 +1,8 @@
 using Grapes.Api.Models;
+using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -34,12 +37,47 @@ builder.Services.AddOpenTelemetry()
         .AddConsoleExporter()
         .AddOtlpExporter())
     .WithMetrics(metrics => metrics
+        .AddRuntimeInstrumentation()
         .AddAspNetCoreInstrumentation()
         .AddConsoleExporter()
         .AddOtlpExporter());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter the Bearer Token",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement{
+        {
+            new OpenApiSecurityScheme{
+                Name = "Bearer",
+                In= ParameterLocation.Header,
+                Reference=new OpenApiReference{
+                    Id="Bearer",
+                    Type = ReferenceType.SecurityScheme
+                }
+            },
+            new List<string>()
+        }
+    });
+});
+
+var authenticationOptions = builder
+    .Configuration
+    .GetSection(KeycloakAuthenticationOptions.Section)
+    .Get<KeycloakAuthenticationOptions>();
+var authorizationOptions = builder
+    .Configuration
+    .GetSection(KeycloakProtectionClientOptions.Section)
+    .Get<KeycloakProtectionClientOptions>();
+builder.Services.AddKeycloakAuthentication(authenticationOptions);
+builder.Services.AddKeycloakAuthorization(authorizationOptions);
 
 var app = builder.Build();
 

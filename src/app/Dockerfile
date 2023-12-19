@@ -1,8 +1,8 @@
-FROM node:18-alpine AS builder
+FROM node:21-alpine AS builder
 WORKDIR /src
 COPY package.json .
 COPY package-lock.json .
-RUN npm i
+RUN npm ci --no-audit
 COPY . .
 ARG ROOT_CONFIG_URL
 ARG SCAFFOLD_MFE_URL

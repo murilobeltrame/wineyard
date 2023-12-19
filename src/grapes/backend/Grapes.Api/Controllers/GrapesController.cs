@@ -1,9 +1,11 @@
 using Grapes.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Grapes.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class GrapesController : ControllerBase

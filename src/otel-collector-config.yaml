@@ -1,0 +1,71 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+      grpc:
+
+  # The hostmetrics receiver is required to get correct infrastructure metrics in Datadog.
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      paging:
+        metrics:
+          system.paging.utilization:
+            enabled: true
+      cpu:
+        metrics:
+          system.cpu.utilization:
+            enabled: true
+      disk:
+      filesystem:
+        metrics:
+          system.filesystem.utilization:
+            enabled: true
+      load:
+      memory:
+      network:
+      processes:
+  # The prometheus receiver scrapes metrics needed for the OpenTelemetry Collector Dashboard.
+  prometheus:
+    config:
+      scrape_configs:
+      - job_name: 'otelcol'
+        scrape_interval: 10s
+        static_configs:
+        - targets: ['0.0.0.0:8888']
+
+processors:
+  batch:
+
+exporters:
+  datadog:
+    api:
+      site: us5.datadoghq.com
+      key: bdb3d6716f5691eb02c3d32af8673d3e
+  debug:
+    verbosity: detailed
+  elasticsearch: 
+    index: 'outbox'
+    tls:
+        insecure: true
+    endpoints: 
+      - "http://host.docker.internal:9200"
+
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics, prometheus]
+      processors: [batch]
+      exporters: [debug, datadog]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, datadog]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, datadog, elasticsearch]

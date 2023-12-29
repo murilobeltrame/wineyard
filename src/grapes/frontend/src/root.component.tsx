@@ -7,11 +7,12 @@ export default function Root() {
   const [grapesSelected, setGrapesSelected] = useState<string[]>([])
 
   useEffect(() => {
+    const token = sessionStorage.getItem('wineyard-token');
     let url = `${process.env.BACKEND_URL ?? 'http://localhost:5054'}/Grapes`
     if (grapeFilter?.length >= 3) {
       url = `${url}?name=${grapeFilter}`
     }
-    fetch(url)
+    fetch(url, {headers: {Authorization: `Bearer ${token}`}})
       .then((response) => response.json())
       .then((data) => setGrapes(data))
       .catch(_ => setGrapes([]))

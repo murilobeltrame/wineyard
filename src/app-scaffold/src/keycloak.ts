@@ -9,11 +9,12 @@ const keycloak = new Keycloak({
 keycloak.init({onLoad:  'login-required'})
   .then((authenticated) => {
     if (authenticated) {
-        console.log('User is authenticated')
+        console.log('SCAFFOLD :: User is authenticated')
+        sessionStorage.setItem('wineyard-token', keycloak.token!);
     } else {
-        console.log('User isn`t authenticated')
+        console.log('SCAFFOLD :: User isn`t authenticated')
     }
   })
-  .catch((error) => console.error('Keycloak initialization failed:', error));
+  .catch((error) => console.error('SCAFFOLD :: Keycloak initialization failed:', error));
 
 export default keycloak

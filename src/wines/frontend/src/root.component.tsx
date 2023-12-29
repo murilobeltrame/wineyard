@@ -45,6 +45,7 @@ export default function Root() {
   })
 
   useEffect(() => {
+    const token = sessionStorage.getItem('wineyard-token');
     let url = `${process.env.BACKEND_URL?? 'http://localhost:5069'}/Wines?`
     if (selectedCountries.length) {
       url = `${url}${selectedCountries.map(country => `countries=${country}`).join('&')}`
@@ -53,7 +54,7 @@ export default function Root() {
       if (!url.endsWith('?')) url = `${url}&`
       url = `${url}${selectedGrapes.map(grape => `grapes=${grape}`).join('&')}`
     }
-    fetch(url)
+    fetch(url, {headers: {Authorization: `Bearer ${token}`}})
       .then((response) => response.json())
       .then((data) => setWines(data))
       .catch(_ => setWines([]))
